@@ -1,3 +1,5 @@
+##Part 1: Stack Implementation using Array
+##Task 1: Implementthe ArrayStack Class Structure
 class ArrayStack:
     def __init__(self, capacity=10):
         self.capacity = capacity
@@ -67,3 +69,92 @@ s.pop()
 
 print("Stack size:", s.size())
 s.display()
+
+##Part 2: Stack Implementation using Linked List
+##Task 3 & 4: Node and LinkedStack Classes
+# Node class to represent each element
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+# LinkedStack class
+class LinkedStack:
+    def __init__(self):
+        self.top = None  # reference to the top node
+        self._size = 0
+        print("Created new LinkedStack")
+        print(f"Stack is empty: {self.is_empty()}")
+
+    # Push element onto the stack
+    def push(self, element):
+        new_node = Node(element)
+        new_node.next = self.top  # point new node to current top
+        self.top = new_node       # update top
+        self._size += 1
+        print(f"Pushed {element} to the stack")
+
+    # Pop element from the top
+    def pop(self):
+        if self.is_empty():
+            print("Stack Underflow! Cannot pop element.")
+            return None
+        popped_data = self.top.data
+        self.top = self.top.next  # move top to next node
+        self._size -= 1
+        print(f"Popped element: {popped_data}")
+        return popped_data
+
+    # Peek top element without removing
+    def peek(self):
+        if self.is_empty():
+            print("Stack is empty!")
+            return None
+        print(f"Top element: {self.top.data}")
+        return self.top.data
+
+    # Check if stack is empty
+    def is_empty(self):
+        return self.top is None
+
+    # Return current size
+    def size(self):
+        return self._size
+
+    # Display stack elements
+    def display(self):
+        if self.is_empty():
+            print("Stack is empty")
+            return
+        current = self.top
+        elements = []
+        while current:
+            elements.append(current.data)
+            current = current.next
+        print("Display stack:", elements)
+        # Create linked stack
+stack = LinkedStack()
+
+# Push elements
+stack.push(10)
+stack.display()
+
+stack.push(20)
+stack.display()
+
+stack.push(30)
+stack.display()
+
+stack.peek()
+
+stack.pop()
+
+# Display remaining stack in linked style
+current = stack.top
+print("Current stack:", end=" ")
+while current:
+    print(current.data, end=" -> ")
+    current = current.next
+print("null")
+
+print("Stack size:", stack.size())
